@@ -127,16 +127,17 @@ def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--checkpoint', type=str, help='Checkpoint path')
+    parser.add_argument('--phrase', type=str, help='Phrase to paraphrase')
+
     args = parser.parse_args()
     paraphraser = Paraphraser(args.checkpoint)
-
-    while 1:
-        source_sentence = input("Source: ")
-        #p = paraphraser.greedy_paraphrase(source_sentence)
-        #print(p)
-        paraphrases = paraphraser.sample_paraphrase(source_sentence, sampling_temp=0.75, how_many=10)
-        for i, paraphrase in enumerate(paraphrases):
-            print("Paraph #{}: {}".format(i, paraphrase))
+    
+    source_sentence = args.phrase
+    p = paraphraser.greedy_paraphrase(source_sentence)
+    print(p)
+    paraphrases = paraphraser.sample_paraphrase(source_sentence, sampling_temp=0.75, how_many=10)
+    for i, paraphrase in enumerate(paraphrases):
+        print("Paraph #{}: {}".format(i, paraphrase))
 
 if __name__ == '__main__':
     main()
