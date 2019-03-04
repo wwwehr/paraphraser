@@ -5,6 +5,7 @@ from six.moves import input
 from lstm_model import lstm_model
 import numpy as np
 from pprint import pprint as pp
+import json
 
 
 class Paraphraser(object):
@@ -133,11 +134,8 @@ def main():
     paraphraser = Paraphraser(args.checkpoint)
     
     source_sentence = args.phrase
-    p = paraphraser.greedy_paraphrase(source_sentence)
-    print(p)
     paraphrases = paraphraser.sample_paraphrase(source_sentence, sampling_temp=0.75, how_many=10)
-    for i, paraphrase in enumerate(paraphrases):
-        print("Paraph #{}: {}".format(i, paraphrase))
+    print(json.dumps(paraphrases))
 
 if __name__ == '__main__':
     main()
